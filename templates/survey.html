@@ -12,7 +12,7 @@
         <button onclick="location.href='{{ url_for('home') }}'" class="home-btn">Home</button>
     </div>
     <div class="survey-container">
-        <form id="surveyForm" class="survey-form">
+        <form id="surveyForm" class="survey-form" action="{{ url_for('submit_survey') }}" method="post">
             <div class="question">
                 <p>Do you have access to a gym?</p>
                 <div class="options">
