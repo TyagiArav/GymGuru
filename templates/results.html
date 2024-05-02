@@ -1,17 +1,177 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Personalized Workout</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/results.css') }}">
-</head>
-<body>
-    <div class="content-container">
-        <h1>Your Personalized Workout</h1>
-        <div class="workout-area">
-            <!-- Dynamic content goes here -->
-        </div>
-    </div>
-</body>
-</html>
+  <!DOCTYPE html>
+  <head>
+  <style>
+  /* CSS styles for the page */
+
+  /* Styles for the body and html elements */
+  body, html {
+      height: 100%;
+      font-family: Arial;
+      background-color: #4B6CC1;
+    text-align: center;
+  }
+
+  /* Styles for the main content container */
+  .content-container {
+      text-align: center;
+      padding: 50px 50px;
+  }
+
+  /* Styles for the heading */
+  h1 {
+      color: white;
+      margin-bottom: 50px;
+  }
+
+  /* Styles for the workout area */
+  .workout-area {
+      background-color: #4B6CC1;
+      min-width: 900px;
+      max-width: 900px;
+      margin: 20px auto;
+      height: auto;
+      /* width: auto; */
+      border-radius: 20px;
+      overflow-y: auto;
+  }
+
+  /* Styles for the error message */
+  .error-message {
+      color: red;
+      font-weight: bold;
+      font-size: 24px;
+      margin-top: 20px;
+  }
+
+  /* Styles for the back button */
+  .back-btn {
+      background-color: #ffffff;
+      color: #4B6CC1;
+      padding: 10px 20px;
+      border: 2px solid #4B6CC1;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 1em;
+      display: inline-block;
+      text-align: center;
+  }
+
+  /* Hover effect for the back button */
+  .back-btn:hover {
+      transform: scale(1.1);
+    cursor: pointer;
+  }
+
+  /* Styles for the home button */
+  .home-btn{
+      border: 2px solid white;
+      background-color: transparent;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 15px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+  }
+
+  /* Hover effect for the home button */
+  .home-btn:hover {
+      transform: scale(1.1);
+      cursor: pointer;
+  }
+  .download-btn:hover{
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+
+    .download-btn{
+      border: 2px solid white;
+      background-color: white;
+      color: #4B6CC1;
+      padding: 10px;
+      border-radius: 20px;
+      margin: 2%;
+      font-weight: bold;
+      font-size: 1em;
+    }
+  /* Styles for the filler text */
+  .filler-text {
+      color: white;
+      font-size: 18px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+  }
+    tr, td {
+      border-collapse: collapse;
+      border: 2px solid #4B6CC1;
+      border-radius: 5px;
+      /* padding: 2% 2%; */
+      /* margin: 1% 1%; */
+      background: white;
+    }
+    tbody>:first-child{
+      background-color: lightgray;
+      border-radius: 5px;
+
+    }
+    tbody>tr:first-child{
+      width : 20px;
+      
+    }
+    @media print{
+      header{
+        display: none;
+      }
+      .download-btn{
+        display: none;
+      }
+      .filler-text{
+        display: none;
+      }
+      .back-btn{
+        display: none;
+      }
+      .workout-area{
+        width: 100%;
+        height: auto;
+      }
+    }
+
+  </style>
+  </head>
+  <body>
+  <!-- Header section -->
+  <div class="header">
+      <!-- Home button that navigates to the home page when clicked -->
+      <button onclick="location.href='{{ url_for('home') }}'" class="home-btn">Home</button>
+  </div>
+
+  <!-- Main content container -->
+  <div class="content-container">
+      <!-- Heading -->
+      <h1>Your Personalized Workout</h1>
+
+      <!-- Conditional rendering based on the APIresult -->
+      {% if 'Error' in APIresult %}
+          <!-- Display the error message if APIresult contains 'Error' -->
+          <div class="error-message">{{ APIresult }}</div>
+          <!-- Back button that navigates to the survey page when clicked -->
+          <button onclick="location.href='{{ url_for('survey') }}'" class="back-btn">Back to Survey</button>
+      {% else %}
+          <!-- Display the workout plan if there are no errors -->
+          <!-- Filler text explaining the workout plan -->
+          <p class="filler-text">Here is your customized workout plan based on your inputs! Each day contains several exercises along with a number of repetitions or minutes that is recommended per set. A description is given for each exercise. </p>
+
+          <!-- Workout area -->
+          <div class="workout-area">
+              <!-- Display the workout plan (APIresult) as HTML -->
+              <p style="color: black; font-size: 20px; text-align: center; font-family: Arial, sans-serif; margin-left: auto; margin-right: auro;">{{ APIresult | safe }}</p>
+          </div>
+          <button class ="download-btn" onclick = "print()">Download as PDF</button>
+          <!-- Back button that navigates to the survey page when clicked -->
+          <button onclick="location.href='{{ url_for('survey') }}'" class="back-btn">Back to Survey</button>
+      {% endif %}
+  </div>
+
+  </body>
+  </html>
