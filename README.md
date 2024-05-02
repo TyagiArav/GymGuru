@@ -9,4 +9,5 @@ Instructions for running web application locally:
 7) In terminal, run "python -m pip install flask".
 8) Then, in terminal, run "python -m flask run". Make sure to be in the root directory when running this command.
 9) The last line should be something similar to: "Running on http://127.0.0.1:5000/". Ctrl+click on the http link to open the web app in your browser.
-10) That's it!
+10) To quit running the application, in terminal, use the Ctrl+C command.
+11) That's it!
